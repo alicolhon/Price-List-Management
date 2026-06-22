@@ -15,6 +15,11 @@ backend/data/*.db
 backend/data/*.xlsb
 backend/data/*.ods
 backend/data/*.csv
+# Docker deployment data volume (same exclusion at project root)
+data/*.db
+data/*.xlsb
+data/*.ods
+data/*.csv
 
 # Node
 node_modules/

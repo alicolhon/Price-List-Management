@@ -1,0 +1,19 @@
+# Compatible with both Docker (docker compose) and Podman (podman compose / podman-compose).
+# Rootless Podman tip: if port 80 fails, change "80:80" → "8080:80" and access via port 8080.
+# Run: bash deploy.sh  (handles everything automatically)
+services:
+  app:
+    build: .
+    image: masms-app:latest
+    container_name: masms
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      # Persists the SQLite database and Excel file across container restarts.
+      # Put your price_list.xlsb in ./data/ before starting.
+      - ./data:/app/backend/data
+    environment:
+      - DATABASE_URL=sqlite+aiosqlite:///./data/masms.db
+      - EXCEL_PATH=./data/price_list.xlsb
+      - CORS_ORIGINS=["*"]
