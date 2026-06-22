@@ -1,6 +1,7 @@
 import type { Filters, Product, ProductListResponse, ProductUpdate, SummaryStats } from './types';
 
-const BASE = 'http://localhost:8000';
+// Empty string = same origin, works both behind Nginx proxy and via Vite dev proxy
+const BASE = import.meta.env.DEV ? 'http://localhost:8000' : '';
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE}${path}`, {
